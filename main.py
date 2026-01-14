@@ -1,48 +1,36 @@
 import random
-'''
-1 = snake 
 
--1 = water
+# Mapping of valid inputs to game values
+#  1 = snake, -1 = water, 0 = gun
+choices = {
+    's': 1, 'snake': 1, '1': 1,
+    'w': -1, 'water': -1, '-1': -1,
+    'g': 0, 'gun': 0, '0': 0,
+}
+reversedic = {1: 'snake', -1: 'water', 0: 'gun'}
 
-0 = gun
+computer = random.choice([1, 0, -1])
 
-'''
-computer = random.choice ([1 , 0 , -1])
-yourstr = input ("Enter your choice :")
-yourdic = {'s': 1 , 'w' : -1 , 'g' : 0 }
-reversedic = {1 : 'snake' , -1 : 'water' , 0 : 'gun'}
+# Prompt until a valid choice is entered
+while True:
+    user_raw = input("Enter your choice (s/w/g, snake/water/gun, or 1/0/-1): ").strip().lower()
+    if user_raw in choices:
+        you = choices[user_raw]
+        break
+    print("Invalid choice. Please enter 's', 'w', or 'g' (or full words 'snake','water','gun' or numbers 1,0,-1).")
 
-you = yourdic[yourstr]
-
-# by now we have 2 numbers(variable), you and computer
-
-print(f"you chose {reversedic[you]} \ncomputer chose {reversedic[computer]}")
+# by now we have two numbers (you and computer)
+print(f"You chose {reversedic[you]} \nComputer chose {reversedic[computer]}")
 
 
-if (computer == you):
-    print("its a draw")
+if computer == you:
+    print("It's a draw")
 else:
-    if (computer == -1 and you == 1):
+    # Define which choice beats which: key beats value
+    wins = {1: -1, -1: 0, 0: 1}  # snake beats water, water beats gun, gun beats snake
+    if wins[you] == computer:
         print("You win!")
-    elif (computer == 1 and you == 0):
+    else:
         print("You lose!")
-
-    elif (computer == 1 and you == -1):
-        print("You lose!")
-
-    elif (computer == 1 and you == 0):
-        print("You win!")
-    
-    elif (computer == 0 and you == -1):
-        print ("You win!")
-    
-    elif (computer == -1 and you == 0):
-        print ("You lose!")
-    
-    elif (computer == 0 and you == 1):
-        print ("You lose!")
-
-    else :
-        print ("something went wrong")
 
 
